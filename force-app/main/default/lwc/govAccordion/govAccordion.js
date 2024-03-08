@@ -3,7 +3,7 @@
  * Derived_From_Frontend_Version:v3.13.1
  * Created by: Simon Cook Updated by Harshpreet Singh Chhabra/Brenda Campbell
  **/
-import { LightningElement,api, track } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 
 export default class GovAccordion extends LightningElement {
 
@@ -11,8 +11,13 @@ export default class GovAccordion extends LightningElement {
     @api sectionLabelSummarys = '';
     @api sectionContents = '';
 
+    @api labelShow;
+    @api labelHide;
+    @api labelShowAll;
+    @api labelHideAll;
+
     @track sectionArray = [];
-    @track openAndCLoseAllText = 'Open All';
+    @track openAndCLoseAllText = this.labelShowAll;
 
     connectedCallback(){
 
@@ -23,10 +28,10 @@ export default class GovAccordion extends LightningElement {
         let sectionObj = {
             secId : '',
             secContentId : '',
-            secLabel :'',
+            secLabel : '',
             secSummary : '',
             secContent : ''
-            };
+        };
 
         for(let i=0; i<sectionLabelist.length;i++){
             sectionObj.secId = 'Section' + i;
@@ -38,7 +43,7 @@ export default class GovAccordion extends LightningElement {
             sectionObj = {
                 secId : '',
                 secContentId : '',
-                secLabel :'',
+                secLabel : '',
                 secSummary : '',
                 secContent : ''
                 };
@@ -50,8 +55,10 @@ export default class GovAccordion extends LightningElement {
         let target = this.template.querySelector(`[data-id="Content${targetId}"]`);
         if(target.classList.value.includes("govuk-accordion__section--expanded")){
             target.classList.remove('govuk-accordion__section--expanded');
+            target.setAttribute('aria-expanded','false');
         }else{
             target.classList.add('govuk-accordion__section--expanded');
+            target.setAttribute('aria-expanded','true');
         }
     }
     
@@ -60,10 +67,12 @@ export default class GovAccordion extends LightningElement {
             let target = this.template.querySelector(`[data-id="Content${this.sectionArray[i].secId}"]`);
             if(this.openAndCLoseAllText.includes('Close')){
                 target.classList.remove('govuk-accordion__section--expanded');
+                target.setAttribute('aria-expanded','false');
             }else{
                 target.classList.add('govuk-accordion__section--expanded');
+                target.setAttribute('aria-expanded','true');
             }
         }
-        this.openAndCLoseAllText = this.openAndCLoseAllText.includes('Open') ? 'Close All' : 'Open All' ;
+        this.openAndCLoseAllText = this.openAndCLoseAllText.includes('Open') ? this.labelHideAll : this.labelShowAll ;
     }
 }

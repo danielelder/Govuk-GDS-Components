@@ -1,30 +1,39 @@
 <template>
     <c-gov-c-s-s-provider></c-gov-c-s-s-provider>
-    <div class="govuk-width-container js-enabled">
+    <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
         <div class="govuk-accordion__controls">
             <button type="button" class="govuk-accordion__open-all" onclick={handlebuttonclick} aria-expanded="false">{openAndCLoseAllText}</button>
         </div>
-        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-            <template for:each={sectionArray} for:item="opt">
-            <div class="govuk-accordion__section " data-id={opt.secContentId} key={opt.secId}>
+        <template for:each={sectionArray} for:item="opt">
+        <div class="govuk-accordion__section" data-id={opt.secContentId} key={opt.secId}>
             <div class="govuk-accordion__section-header">
                 <h2 class="govuk-accordion__section-heading">
-                    <button type="button" data-id={opt.secId} aria-controls="accordion-with-summary-sections-content-1" class="govuk-accordion__section-button" aria-describedby="accordion-with-summary-sections-summary-1" aria-expanded="false" onclick={handleclick}>
-                        {opt.secLabel}
-                      <span class="govuk-accordion__icon" aria-hidden="true"></span>
-                </button>
+                    <button type="button" data-id={opt.secId} aria-controls="accordion-content-{opt.secId}" class="govuk-accordion__section-button" aria-expanded="false" aria-label="{opt.secLabel} , show this section" onclick={handleclick}>
+                        <span class="govuk-accordion__section-heading-text" id="accordion-heading-{opt.secId}">
+                            <span class="govuk-accordion__section-heading-text-focus">
+                                {opt.secLabel}
+                            </span>
+                        </span>
+                        <span class="govuk-visually-hidden govuk-accordion__section-heading-divider">, </span>
+                        <span class="govuk-accordion__section-toggle" data-nosnippet="">
+                            <span class="govuk-accordion__section-toggle-focus">
+                                <span class="govuk-accordion-nav__chevron govuk-accordion-nav__chevron--down"></span>
+                                <span class="govuk-accordion__section-toggle-text">Show</span>
+                            </span>
+                        </span>
+                    </button>
                 </h2>
+
                 <div class="govuk-accordion__section-summary govuk-body">
                     {opt.secSummary}
                 </div>
             </div>
-            <div key={opt.secId}  class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
-                <p class='govuk-body'>
+            <div key={opt.secId} id="accordion-content-{opt.secId}" class="govuk-accordion__section-content" hidden="until-found">
+                <p class="govuk-body">
                     <lightning-formatted-rich-text if:true={opt.secContent} value={opt.secContent}></lightning-formatted-rich-text>    
                 </p>
             </div>
-            </div>
-        </template>
         </div>
+    </template>
     </div>
 </template>

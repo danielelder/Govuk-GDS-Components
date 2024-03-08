@@ -13,6 +13,10 @@
             <property name="sectionLabels" type="String" label="Section Labels" description="Please provide semi colon separated Labels for each accordion section"/>
             <property name="sectionLabelSummarys" type="String" label="Section Label Summarys" description="Please provide semi colon separated Label Summarys for each accordion section"/>
             <property name="sectionContents" type="String" label="Section Content" description="Please provide Pipe (|) separated content for each accordion section in either text or html format"/>
+            <property name="labelShow" type="String" label="Show Label" description="Show section label text" required="true" default="Show"/>
+            <property name="labelHide" type="String" label="Hide Label" description="Hide section label text" required="true" default="Hide"/>
+            <property name="labelShowAll" type="String" label="Show All Label" description="Show all label text" required="true" default="Show All"/>
+            <property name="labelHideAll" type="String" label="Hide All Label" description="Hide all section label text" required="true" default="Hide All"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
